@@ -8,5 +8,5 @@ if [ -z "${COLAB_ADC_JSON:-}" ]; then
 fi
 ( umask 077; mkdir -p ~/.config/gcloud; printf '%s' "$COLAB_ADC_JSON" > ~/.config/gcloud/application_default_credentials.json )
 export GOOGLE_APPLICATION_CREDENTIALS=~/.config/gcloud/application_default_credentials.json
-[ -f ~/.ssh/id_ed25519 ] || ssh-keygen -q -t ed25519 -N '' -f ~/.ssh/id_ed25519
+command -v ssh-keygen >/dev/null && { [ -f ~/.ssh/id_ed25519 ] || ssh-keygen -q -t ed25519 -N "" -f ~/.ssh/id_ed25519; }  # 沒有 ssh client 就改用 exec
 echo "colab CLI $(colab version 2>/dev/null | head -1) ready; 每個指令記得加 --auth=adc"
