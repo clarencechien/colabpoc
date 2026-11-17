@@ -20,6 +20,7 @@ BUILD = "/content/llama.cpp"
 BIN_DIR = "/content/llama-bin"
 MODELS = {"26b": ("unsloth/gemma-4-26B-A4B-it-GGUF", "gemma-4-26B-A4B-it-UD-Q4_K_M.gguf"),
           "e4b": ("unsloth/gemma-4-E4B-it-GGUF", "gemma-4-E4B-it-Q8_0.gguf")}
+PORT = 8091  # Colab VM 的 8080 被 Colab 自己的 Jupyter 佔用（2026-11-17 實測 bind 失敗）
 JEVLIKE = "https://github.com/clarencechien/jevlike"
 
 
@@ -69,7 +70,7 @@ def prebuilt():
 
 
 def start_server(model_path, log):
-    cmd = [f"{BIN_DIR}/llama-server", "-m", model_path, "-ngl", "99", "-c", "16384", "-np", "4", "--port", "8080", "--host", "127.0.0.1",
+    cmd = [f"{BIN_DIR}/llama-server", "-m", model_path, "-ngl", "99", "-c", "16384", "-np", "4", "--port", str(PORT), "--host", "127.0.0.1",
            "--jinja", "--reasoning-budget", "0", "--metrics", "--swa-full"]
     print("starting:", " ".join(cmd), flush=True)
     proc = subprocess.Popen(cmd, stdout=open(log, "a"), stderr=subprocess.STDOUT, env=dict(os.environ, LD_LIBRARY_PATH=f"{BIN_DIR}:" + os.environ.get("LD_LIBRARY_PATH", "")))
@@ -78,7 +79,7 @@ def start_server(model_path, log):
         if proc.poll() is not None:
             raise RuntimeError(f"llama-server exited early with code {proc.returncode}; see {log}")
         try:
-            urllib.request.urlopen("http://127.0.0.1:8080/health", timeout=1)
+            urllib.request.urlopen(f"http://127.0.0.1:{PORT}/health", timeout=1)
             print(f"server healthy after {time.time() - t0:.1f}s", flush=True)
             return proc, round(time.time() - t0, 1)
         except Exception:  # noqa: BLE001
@@ -115,7 +116,7 @@ def bench():
         proc, ready_s = start_server(path, f"{OUT}/server-{model}.log")
         t = time.time()
         try:
-            cmd = f"cd /content/jevlike && {sys.executable} bench/run_local.py --which {which} --model {model} --base-url http://127.0.0.1:8080 --out-dir {out_dir}"
+            cmd = f"cd /content/jevlike && {sys.executable} bench/run_local.py --which {which} --model {model} --base-url http://127.0.0.1:{PORT} --out-dir {out_dir}"
             cmd += f' --args "{args}"' if args else ""
             r = subprocess.run(cmd + f" > {OUT}/{w}-{model}.log 2>&1", shell=True)
             vram = subprocess.run(["nvidia-smi", "--query-gpu=memory.used", "--format=csv,noheader,nounits"], capture_output=True, text=True).stdout.strip()
