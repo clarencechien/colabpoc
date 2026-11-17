@@ -67,6 +67,7 @@ E4B 在 T4 上，以 llama.cpp b11371 官方 `ubuntu-cuda-12.8-x64` 預編版（
 - watchdog：Phase 0 用 2 分鐘上限實測，`runtime.unassign()` 在到點後約 20 秒內讓 VM 消失（`usage` 的 active assignments 變 0、`colab sessions` 看不到）。
 - `colab stop` 之後，`colab sessions`（server 端 `/tun/m/assignments` 回 `[]`）立刻看不到 VM，但 `usage` 的 `Active assignments` 與 `Usage rate` 仍顯示 1 / 1.15/hr 至少數分鐘。用 watchdog 釋放的那次則很快歸零。只記現象。
 - **帳號狀態**：`usage` 從頭到尾顯示 `Current balance: 0.00 compute units`。T4 可以配到（使用時 `Usage rate: 1.15/hr`），**L4 被拒**：`Backend rejected accelerator 'L4'. You may not have quota or entitlement for this accelerator on your account.` handoff 推測的「Google AI Pro 約 200 CU/月」在這個帳號上沒有出現。
+- **原因（使用者 2026-11-17 截圖確認）**：帳號的 Google AI Pro（5 TB）是 **6 個月試用**（NT$0/月，之後 NT$650/月）。Colab FAQ 寫明 Google One 方案的免費試用期間不含 Colab 權益；Colab「Settings → Subscription」頁也沒有任何生效中的方案。台灣在 Colab 付費服務的國家名單內，不是地區問題。
 
 ## 單位帳
 
@@ -82,6 +83,6 @@ E4B 在 T4 上，以 llama.cpp b11371 官方 `ubuntu-cuda-12.8-x64` 預編版（
 
 ## 下一步建議
 
-1. **先確認帳號的 Colab 權益**（Colab「資源」頁或 colab.research.google.com/signup）。理由：餘額 0、L4 被拒，Phase 3 的主問題和所有 L4 列都卡在這裡，不是技術問題。
+1. **要跑 L4 就得有付費運算單元**（Colab 隨用隨付或 Colab Pro；AI Pro 試用期間不會有）。理由：Phase 3 的主問題和所有 L4 列都卡在這裡，不是技術問題。
 2. **ZONOS3 純華語 0.27 秒的現象，用固定設定換 seed／換 Haoran 聲音各跑一次**。理由：目前只有單一 seed、單一聲音的觀察，還不能說是 -hf 版的問題。
 3. **給 session jevlike 的寫入權限，把 `docs/jevlike-28-colab-prereg.md` 與 `results/jevlike_colab/` 搬過去**。理由：照 jevlike 的紀律，門檻與結果應該在 jevlike 自己的 repo 裡。
