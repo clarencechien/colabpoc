@@ -52,6 +52,22 @@ def build():
     print("RESULT_JSON " + json.dumps(rep))
 
 
+def prebuilt():
+    """官方 release 的 ubuntu-cuda-12.8-x64 預編版（llama + cudart 兩包），取代自己編。"""
+    os.makedirs(OUT, exist_ok=True)
+    t0 = time.time()
+    rel = f"https://github.com/ggml-org/llama.cpp/releases/download/{TAG}"
+    sh(f"rm -rf {BIN_DIR} /content/llama-pre && mkdir -p {BIN_DIR} /content/llama-pre")
+    for name in (f"llama-{TAG}-bin-ubuntu-cuda-12.8-x64.tar.gz", f"cudart-llama-{TAG}-bin-ubuntu-cuda-12.8-x64.tar.gz"):
+        sh(f"curl -sSL {rel}/{name} | tar xz -C /content/llama-pre")
+    sh(f"find /content/llama-pre -type f \\( -name 'llama-server' -o -name '*.so*' \\) -exec cp -P {{}} {BIN_DIR}/ \\; ; find /content/llama-pre -type l -name '*.so*' -exec cp -P {{}} {BIN_DIR}/ \\;")
+    ver = subprocess.run(f"LD_LIBRARY_PATH={BIN_DIR} {BIN_DIR}/llama-server --version", shell=True, capture_output=True, text=True)
+    rep = {"stage": "prebuilt", "tag": TAG, "asset": "ubuntu-cuda-12.8-x64（官方 release，非自行編譯）", "fetch_s": round(time.time() - t0, 1),
+           "version": (ver.stdout + ver.stderr)[-600:], "files": sorted(os.listdir(BIN_DIR)), "ts": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())}
+    json.dump(rep, open(f"{OUT}/prebuilt.json", "w"), indent=2)
+    print("RESULT_JSON " + json.dumps(rep))
+
+
 def start_server(model_path, log):
     cmd = [f"{BIN_DIR}/llama-server", "-m", model_path, "-ngl", "99", "-c", "16384", "-np", "4", "--port", "8080", "--host", "127.0.0.1",
            "--jinja", "--reasoning-budget", "0", "--metrics", "--swa-full"]
@@ -114,4 +130,4 @@ def bench():
 
 
 if __name__ == "__main__":
-    {"build": build, "bench": bench}[sys.argv[1]]()
+    {"build": build, "prebuilt": prebuilt, "bench": bench}[sys.argv[1]]()
