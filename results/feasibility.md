@@ -10,7 +10,7 @@
 | 1 | Breeze ASR 25 | T4 | B. faster-whisper | — | — | — | 0 | 沒測 | 有現成 CT2 轉檔（第三方，如 `SoybeanMilk/faster-whisper-Breeze-ASR-25`），載不起來才自行轉檔 |
 | 2 | ZONOS3-Mini | T4 / L4 | B. `Zyphra/ZONOS3-Mini-hf`（transformers） | — | — | — | 0 | 沒測 | `scripts/phase2_zonos_tts.py` |
 | 2 | ZONOS3-Mini | T4 / L4 | A. 原生參考實作 `zonos3.reference` | — | — | — | 0 | 沒測 | handoff 寫的 `Zyphra/Zonos.git` 套件在 model card 上沒出現，改用 card 指向的 `Zyphra/ZONOS3-Mini` repo |
-| 3 | jevlike E4B / 26B | L4 | llama.cpp b11371 | 沒跑完 | — | — | 0 | 沒測 | 另外還缺 `clarencechien/jevlike` 的 push 權限，門檻檔尚未 commit |
+| 3 | jevlike E4B / 26B | L4 | llama.cpp b11371 | 沒跑完 | — | — | 0 | 沒測 | 門檻已預先登記於 `docs/jevlike-28-colab-prereg.md`；jevlike 本身仍無寫入權限 |
 | 4 | Blender 5.3.0 | T4 / L4 | OPTIX / CUDA / CPU | — | — | — | 0 | 沒測 | `scripts/phase4_blender.py`；版本號是 2026-11-17 `download.blender.org` 上最新的 linux-x64 |
 
 ## 已查到的事實（不需要 GPU）
@@ -50,6 +50,7 @@
 
 ## 下一步建議
 
-1. **在環境 `CU` 加上環境變數 `COLAB_ADC_JSON` 後開新 session**（`source scripts/cc_setup.sh` 接手）。理由：這是 CLI 路線唯一的阻擋點，其他都備好了。
-2. **或直接走備案 B**：用 Colab 打開 `notebooks/phase0_probe.ipynb` 起跑。理由：不需要 ADC，今天就能拿到第一批數字；repo 是公開的，notebook 可以直接 clone。
-3. **給 session `clarencechien/jevlike` 的寫入權限**。理由：Phase 3 規定門檻要先 commit 進 jevlike 再跑，目前只有唯讀。
+使用者選了**備案 B**（2026-11-17）。依序跑 `notebooks/t4_all.ipynb` → `l4_misc.ipynb` → `l4_jevlike.ipynb`（說明見 README），把「結果 JSON」格的輸出和每次開工前後的運算單元餘額貼回來，由 Claude Code 填這張表。
+
+- Phase 3 的門檻已在任何執行之前登記於 `docs/jevlike-28-colab-prereg.md`（應該放在 jevlike，但這個 session 沒有寫入權限，之後原封不動搬過去）。
+- 預估：T4 一台 ≤ 75 分、L4 兩台合計 ≤ 150 分；實際 CU 以 Colab「資源」面板為準。任何一份 notebook 的 watchdog 都會在時間到時強制釋放 VM。
