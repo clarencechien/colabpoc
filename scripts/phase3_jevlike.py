@@ -40,13 +40,13 @@ def build():
     os.makedirs(OUT, exist_ok=True)
     t0 = time.time()
     sh(f"rm -rf {BUILD} && git clone -q --depth 1 -b {TAG} https://github.com/ggml-org/llama.cpp {BUILD}")
-    sh(f'cd {BUILD} && cmake -B build -DGGML_CUDA=ON -DCMAKE_CUDA_ARCHITECTURES="75;89" -DCMAKE_BUILD_TYPE=Release > /content/cmake.log 2>&1')
+    sh(f'cd {BUILD} && cmake -B build -DGGML_CUDA=ON -DCMAKE_CUDA_ARCHITECTURES="{arg('--archs', '75;89')}" -DCMAKE_BUILD_TYPE=Release > /content/cmake.log 2>&1')
     sh(f"cd {BUILD} && cmake --build build -j --target llama-server > /content/build.log 2>&1")
     secs = round(time.time() - t0, 1)
     sh(f"rm -rf {BIN_DIR} && mkdir -p {BIN_DIR} && cp {BUILD}/build/bin/llama-server {BIN_DIR}/ && cp -P {BUILD}/build/bin/*.so* {BIN_DIR}/ 2>/dev/null || true")
     sh(f"tar czf {OUT}/llama-server-{TAG}.tar.gz -C {BIN_DIR} .")
     ver = subprocess.run(f"LD_LIBRARY_PATH={BIN_DIR} {BIN_DIR}/llama-server --version", shell=True, capture_output=True, text=True)
-    rep = {"stage": "build", "tag": TAG, "gpu": gpu_name(), "build_s": secs, "version": (ver.stdout + ver.stderr)[-400:],
+    rep = {"stage": "build", "tag": TAG, "archs": arg("--archs", "75;89"), "nproc": os.cpu_count(), "gpu": gpu_name(), "build_s": secs, "version": (ver.stdout + ver.stderr)[-400:],
            "tar_bytes": os.path.getsize(f"{OUT}/llama-server-{TAG}.tar.gz"), "ts": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())}
     json.dump(rep, open(f"{OUT}/build.json", "w"), indent=2)
     print("RESULT_JSON " + json.dumps(rep))

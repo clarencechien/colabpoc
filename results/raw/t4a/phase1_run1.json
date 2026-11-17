@@ -1,0 +1,182 @@
+{
+  "phase": 1,
+  "model": "MediaTek-Research/Breeze-ASR-25",
+  "gpu": "Tesla T4, 15360 MiB",
+  "ts": "2026-11-17T13:31:48Z",
+  "provenance": {
+    "訓練集來源": "ODC Synth（BreezyVoice 合成華語 10,000h）、CommonVoice17-EN 1,738h、NTUML2021 11h（model card）",
+    "測試音檔來源": "ZONOS3-Mini 合成語音（只驗管線，不代表真實準確度）",
+    "是否可能重疊": "未使用 NTUML2021；合成語音與 ODC Synth 同屬 TTS 合成但引擎不同（ZONOS3 vs BreezyVoice）"
+  },
+  "paths": {
+    "A_transformers_fp16": {
+      "load_s": 32.8,
+      "dtype": "float16",
+      "files": [
+        {
+          "file": "mix1.wav",
+          "pass": "first",
+          "dur_s": 4.73,
+          "proc_s": 5.56,
+          "rtf": 1.1742,
+          "text": "這個 PR 的 CI 一直 fail 你可以幫我 review 一下嗎",
+          "has_timestamps": true,
+          "n_segments": 1,
+          "first_segment": {
+            "timestamp": [
+              0.0,
+              4.96
+            ],
+            "text": "這個 PR 的 CI 一直 fail 你可以幫我 review 一下嗎"
+          }
+        },
+        {
+          "file": "mix2.wav",
+          "pass": "first",
+          "dur_s": 4.27,
+          "proc_s": 1.26,
+          "rtf": 0.2953,
+          "text": "我們先把 model deploy 到 staging 再跑一次 benchmark",
+          "has_timestamps": true,
+          "n_segments": 1,
+          "first_segment": {
+            "timestamp": [
+              0.0,
+              4.6
+            ],
+            "text": "我們先把 model deploy 到 staging 再跑一次 benchmark"
+          }
+        },
+        {
+          "file": "mix3.wav",
+          "pass": "first",
+          "dur_s": 4.13,
+          "proc_s": 1.41,
+          "rtf": 0.3417,
+          "text": "明天的 meeting 改到下午 agenda 我晚點 update",
+          "has_timestamps": true,
+          "n_segments": 1,
+          "first_segment": {
+            "timestamp": [
+              0.0,
+              4.14
+            ],
+            "text": "明天的 meeting 改到下午 agenda 我晚點 update"
+          }
+        },
+        {
+          "file": "num1.wav",
+          "pass": "first",
+          "dur_s": 7.13,
+          "proc_s": 2.02,
+          "rtf": 0.2834,
+          "text": "Tingtong Han貨 a 12 345總金額是新台幣 36 850 元",
+          "has_timestamps": true,
+          "n_segments": 2,
+          "first_segment": {
+            "timestamp": [
+              0.0,
+              3.56
+            ],
+            "text": "Tingtong Han貨 a 12 345"
+          }
+        },
+        {
+          "file": "num2.wav",
+          "pass": "first",
+          "dur_s": 5.4,
+          "proc_s": 2.01,
+          "rtf": 0.3727,
+          "text": "會議時間是 2026 年 11 月 17 日下午 2.30 分",
+          "has_timestamps": true,
+          "n_segments": 1,
+          "first_segment": {
+            "timestamp": [
+              0.0,
+              5.52
+            ],
+            "text": "會議時間是 2026 年 11 月 17 日下午 2.30 分"
+          }
+        },
+        {
+          "file": "num3.wav",
+          "pass": "first",
+          "dur_s": 7.67,
+          "proc_s": 2.33,
+          "rtf": 0.3034,
+          "text": "楊氏從 92.5％ 提升到 97.3％UPH 增加了 120 片",
+          "has_timestamps": true,
+          "n_segments": 2,
+          "first_segment": {
+            "timestamp": [
+              0.0,
+              5.24
+            ],
+            "text": "楊氏從 92.5％ 提升到 97.3％"
+          }
+        },
+        {
+          "file": "zh1.wav",
+          "pass": "first",
+          "dur_s": 0.27,
+          "proc_s": 1.19,
+          "rtf": 4.4721,
+          "text": "",
+          "has_timestamps": false,
+          "n_segments": 0,
+          "first_segment": null
+        },
+        {
+          "file": "zh2.wav",
+          "pass": "first",
+          "dur_s": 0.27,
+          "proc_s": 1.2,
+          "rtf": 4.4891,
+          "text": "",
+          "has_timestamps": false,
+          "n_segments": 0,
+          "first_segment": null
+        },
+        {
+          "file": "zh3.wav",
+          "pass": "first",
+          "dur_s": 0.27,
+          "proc_s": 1.19,
+          "rtf": 4.4708,
+          "text": "",
+          "has_timestamps": false,
+          "n_segments": 0,
+          "first_segment": null
+        },
+        {
+          "file": "mix1.wav",
+          "pass": "warm-repeat",
+          "dur_s": 4.73,
+          "proc_s": 1.34,
+          "rtf": 0.2836,
+          "text": "這個 PR 的 CI 一直 fail 你可以幫我 review 一下嗎",
+          "has_timestamps": true,
+          "n_segments": 1,
+          "first_segment": {
+            "timestamp": [
+              0.0,
+              4.96
+            ],
+            "text": "這個 PR 的 CI 一直 fail 你可以幫我 review 一下嗎"
+          }
+        }
+      ],
+      "torch_peak_alloc_mib": 4194,
+      "ok": true,
+      "peak_vram_mib_nvidia_smi": 4769,
+      "wall_s": 88.2
+    },
+    "B_faster_whisper": {
+      "ok": false,
+      "error": "TypeError(\"open() got an unexpected keyword argument 'metadata_errors'\")",
+      "traceback": "Traceback (most recent call last):\n  File \"/content/colabpoc/scripts/phase1_breeze_asr.py\", line 103, in run_worker\n    rep = {\"A\": worker_a, \"B\": worker_b}[which](files)\n  File \"/content/colabpoc/scripts/phase1_breeze_asr.py\", line 91, in worker_b\n    segs, info = model.transcribe(f, beam_size=5, word_timestamps=False)  # language 沒開（自動偵測）\n                 ~~~~~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"/usr/local/lib/python3.13/dist-packages/faster_whisper/transcribe.py\", line 876, in transcribe\n    audio = decode_audio(audio, sampling_rate=sampling_rate)\n  File \"/usr/local/lib/python3.13/dist-packages/faster_whisper/audio.py\", line 46, in decode_audio\n    with av.open(input_file, mode=\"r\", metadata_errors=\"ignore\") as container:\n         ~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\n  File \"av/container/core.py\", line 479, in av.container.core.open\n    def open(\nTypeError: open() got an unexpected keyword argument 'metadata_errors'\n",
+      "peak_vram_mib_nvidia_smi": 3081,
+      "wall_s": 33.1
+    }
+  }
+}

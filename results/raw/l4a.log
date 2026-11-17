@@ -1,0 +1,11 @@
+2026-11-17T13:58:24Z
+Current balance: 0.00 compute units
+Usage rate: 1.15/hr
+Active assignments: 1
+[colab] Creating session 'l4a'...
+[colab] Backend rejected accelerator 'L4'. You may not have quota or entitlement for this accelerator on your account. Try a different one (e.g. --gpu T4) or omit --gpu/--tpu for a CPU runtime.
+rc=1
+[colab] Session 'l4a' not found.
+Current balance: 0.00 compute units
+Usage rate: 1.15/hr
+Active assignments: 1
