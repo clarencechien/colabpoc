@@ -1,0 +1,13 @@
+### E4B
+Tue Nov 17 02:03:43 PM UTC 2026
++ cd /content/jevlike && git fetch -q origin 62811a4ae2fb504994e6c76af18d07e3fc486a8d && git checkout -q FETCH_HEAD
++ /usr/bin/python3 -m pip install -q huggingface_hub numpy requests
+Warning: You are sending unauthenticated requests to the HF Hub. Please set a HF_TOKEN to enable higher rate limits and faster downloads.
+starting: /content/llama-bin/llama-server -m /content/models/gemma-4-E4B-it-Q8_0.gguf -ngl 99 -c 16384 -np 4 --port 8091 --host 127.0.0.1 --jinja --reasoning-budget 0 --metrics --swa-full
+server healthy after 113.2s
+starting: /content/llama-bin/llama-server -m /content/models/gemma-4-E4B-it-Q8_0.gguf -ngl 99 -c 16384 -np 4 --port 8091 --host 127.0.0.1 --jinja --reasoning-budget 0 --metrics --swa-full
+server healthy after 5.1s
++ cd /content/jevlike && tar czf /content/out/phase3/jevlike-results-colab-e4b.tar.gz results/colab
+RESULT_JSON {"stage": "bench", "model": "e4b", "model_file": "gemma-4-E4B-it-Q8_0.gguf", "gpu": "Tesla T4, 15360 MiB", "download_s": 0.2, "runs": [{"which": "smoke", "rc": 0, "server_ready_s": 113.2, "bench_s": 58.0, "vram_used_mib_at_end": "6195"}, {"which": "latency", "rc": 0, "server_ready_s": 5.1, "bench_s": 74.8, "vram_used_mib_at_end": "6193"}], "jevlike_commit": "62811a4ae2fb504994e6c76af18d07e3fc486a8d", "ts": "2026-11-17T14:08:00Z"}
+### DONE
+Tue Nov 17 02:08:00 PM UTC 2026

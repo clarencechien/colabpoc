@@ -1,0 +1,25 @@
+### PREBUILT
+Tue Nov 17 01:59:36 PM UTC 2026
++ rm -rf /content/llama-bin /content/llama-pre && mkdir -p /content/llama-bin /content/llama-pre
++ curl -sSL https://github.com/ggml-org/llama.cpp/releases/download/b11371/llama-b11371-bin-ubuntu-cuda-12.8-x64.tar.gz | tar xz -C /content/llama-pre
++ curl -sSL https://github.com/ggml-org/llama.cpp/releases/download/b11371/cudart-llama-b11371-bin-ubuntu-cuda-12.8-x64.tar.gz | tar xz -C /content/llama-pre
++ find /content/llama-pre -type f \( -name 'llama-server' -o -name '*.so*' \) -exec cp -P {} /content/llama-bin/ \; ; find /content/llama-pre -type l -name '*.so*' -exec cp -P {} /content/llama-bin/ \;
+RESULT_JSON {"stage": "prebuilt", "tag": "b11371", "asset": "ubuntu-cuda-12.8-x64\uff08\u5b98\u65b9 release\uff0c\u975e\u81ea\u884c\u7de8\u8b6f\uff09", "fetch_s": 32.0, "version": "version: 0.5.0-dev (build 11371, commit 99b95488c)\nbuilt with GNU 13.3.0 for Linux x86_64\n", "files": ["libcublas.so.12", "libcublasLt.so.12", "libcudart.so.12", "libggml-base.so", "libggml-base.so.0", "libggml-base.so.0.25.3", "libggml-cpu-alderlake.so", "libggml-cpu-cannonlake.so", "libggml-cpu-cascadelake.so", "libggml-cpu-cooperlake.so", "libggml-cpu-haswell.so", "libggml-cpu-icelake.so", "libggml-cpu-ivybridge.so", "libggml-cpu-piledriver.so", "libggml-cpu-sandybridge.so", "libggml-cpu-sapphirerapids.so", "libggml-cpu-skylakex.so", "libggml-cpu-sse42.so", "libggml-cpu-x64.so", "libggml-cpu-zen4.so", "libggml-cuda.so", "libggml-rpc.so", "libggml.so", "libggml.so.0", "libggml.so.0.25.3", "libllama-batched-bench-impl.so", "libllama-bench-impl.so", "libllama-cli-impl.so", "libllama-common.so", "libllama-common.so.0", "libllama-common.so.0.5.0", "libllama-completion-impl.so", "libllama-fit-params-impl.so", "libllama-perplexity-impl.so", "libllama-quantize-impl.so", "libllama-server-impl.so", "libllama.so", "libllama.so.0", "libllama.so.0.5.0", "libmtmd.so", "libmtmd.so.0", "libmtmd.so.0.5.0", "llama-server"], "ts": "2026-11-17T14:00:08Z"}
+### E4B
+Tue Nov 17 02:00:08 PM UTC 2026
++ git clone -q https://github.com/clarencechien/jevlike /content/jevlike
++ cd /content/jevlike && git fetch -q origin 62811a4ae2fb504994e6c76af18d07e3fc486a8d && git checkout -q FETCH_HEAD
++ /usr/bin/python3 -m pip install -q huggingface_hub numpy requests
+starting: /content/llama-bin/llama-server -m /content/models/gemma-4-E4B-it-Q8_0.gguf -ngl 99 -c 16384 -np 4 --port 8080 --host 127.0.0.1 --jinja --reasoning-budget 0 --metrics --swa-full
+Traceback (most recent call last):
+  File "/content/colabpoc/scripts/phase3_jevlike.py", line 133, in <module>
+    {"build": build, "prebuilt": prebuilt, "bench": bench}[sys.argv[1]]()
+    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^^
+  File "/content/colabpoc/scripts/phase3_jevlike.py", line 115, in bench
+    proc, ready_s = start_server(path, f"{OUT}/server-{model}.log")
+                    ~~~~~~~~~~~~^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/content/colabpoc/scripts/phase3_jevlike.py", line 79, in start_server
+    raise RuntimeError(f"llama-server exited early with code {proc.returncode}; see {log}")
+RuntimeError: llama-server exited early with code 1; see /content/out/phase3/server-e4b.log
+### DONE
+Tue Nov 17 02:01:22 PM UTC 2026

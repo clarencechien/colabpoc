@@ -1,0 +1,51 @@
+[m_alarm_severity] 200 rows, 200 to run
+  [m_alarm_severity] 100/200 acc so far 0.740 (13s)
+  [m_alarm_severity] 200/200 acc so far 0.730 (27s)
+[m_alarm_severity] control arm: 0 rows
+[m_alarm_severity] {"n": 200, "acc": 0.73, "acc_easy": 0.7428571428571429, "acc_hard": 0.7, "missing_rate": 0.0, "control_n": 0, "control_acc": 0.0, "control_unparsed": 0}
+[m_alarm_category] 200 rows, 200 to run
+  [m_alarm_category] 100/200 acc so far 1.000 (20s)
+  [m_alarm_category] 200/200 acc so far 0.925 (42s)
+[m_alarm_category] control arm: 0 rows
+[m_alarm_category] {"n": 200, "acc": 0.925, "acc_easy": 0.9785714285714285, "acc_hard": 0.8, "missing_rate": 0.0, "control_n": 0, "control_acc": 0.0, "control_unparsed": 0}
+[m_needs_dispatch] 200 rows, 200 to run
+  [m_needs_dispatch] 100/200 acc so far 0.910 (14s)
+  [m_needs_dispatch] 200/200 acc so far 0.880 (26s)
+[m_needs_dispatch] control arm: 0 rows
+[m_needs_dispatch] {"n": 200, "acc": 0.88, "acc_easy": 0.8928571428571429, "acc_hard": 0.85, "missing_rate": 0.0, "control_n": 0, "control_acc": 0.0, "control_unparsed": 0}
+[q_spc_action] 200 rows, 200 to run
+  [q_spc_action] 100/200 acc so far 0.760 (21s)
+  [q_spc_action] 200/200 acc so far 0.710 (40s)
+[q_spc_action] control arm: 0 rows
+[q_spc_action] {"n": 200, "acc": 0.71, "acc_easy": 0.7714285714285715, "acc_hard": 0.5666666666666667, "missing_rate": 0.0, "control_n": 0, "control_acc": 0.0, "control_unparsed": 0}
+[q_defect_root] 200 rows, 200 to run
+  [q_defect_root] 100/200 acc so far 1.000 (23s)
+  [q_defect_root] 200/200 acc so far 0.920 (45s)
+[q_defect_root] control arm: 0 rows
+[q_defect_root] {"n": 200, "acc": 0.92, "acc_easy": 0.9642857142857143, "acc_hard": 0.8166666666666667, "missing_rate": 0.0, "control_n": 0, "control_acc": 0.0, "control_unparsed": 0}
+[p_uph_anomaly] 200 rows, 200 to run
+  [p_uph_anomaly] 100/200 acc so far 0.900 (13s)
+  [p_uph_anomaly] 200/200 acc so far 0.820 (26s)
+[p_uph_anomaly] control arm: 0 rows
+[p_uph_anomaly] {"n": 200, "acc": 0.82, "acc_easy": 0.8857142857142857, "acc_hard": 0.6666666666666666, "missing_rate": 0.0, "control_n": 0, "control_acc": 0.0, "control_unparsed": 0}
+[p_line_change] 200 rows, 200 to run
+  [p_line_change] 100/200 acc so far 1.000 (17s)
+  [p_line_change] 200/200 acc so far 0.995 (32s)
+[p_line_change] control arm: 0 rows
+[p_line_change] {"n": 200, "acc": 0.995, "acc_easy": 0.9928571428571429, "acc_hard": 1.0, "missing_rate": 0.0, "control_n": 0, "control_acc": 0.0, "control_unparsed": 0}
+[x_ticket_route] 200 rows, 200 to run
+  [x_ticket_route] 100/200 acc so far 1.000 (17s)
+  [x_ticket_route] 200/200 acc so far 0.995 (35s)
+[x_ticket_route] control arm: 0 rows
+[x_ticket_route] {"n": 200, "acc": 0.995, "acc_easy": 1.0, "acc_hard": 0.9833333333333333, "missing_rate": 0.0, "control_n": 0, "control_acc": 0.0, "control_unparsed": 0}
+[x_escalate] 200 rows, 200 to run
+  [x_escalate] 100/200 acc so far 0.950 (12s)
+  [x_escalate] 200/200 acc so far 0.955 (24s)
+[x_escalate] control arm: 0 rows
+[x_escalate] {"n": 200, "acc": 0.955, "acc_easy": 0.9428571428571428, "acc_hard": 0.9833333333333333, "missing_rate": 0.0, "control_n": 0, "control_acc": 0.0, "control_unparsed": 0}
+[x_10way_intent] 200 rows, 200 to run
+  [x_10way_intent] 100/200 acc so far 0.920 (23s)
+  [x_10way_intent] 200/200 acc so far 0.930 (46s)
+[x_10way_intent] control arm: 0 rows
+[x_10way_intent] {"n": 200, "acc": 0.93, "acc_easy": 0.9071428571428571, "acc_hard": 0.9833333333333333, "missing_rate": 0.015, "control_n": 0, "control_acc": 0.0, "control_unparsed": 0}
+{"m_alarm_severity": {"n": 200, "acc": 0.73, "acc_easy": 0.7428571428571429, "acc_hard": 0.7, "missing_rate": 0.0, "control_n": 0, "control_acc": 0.0, "control_unparsed": 0}, "m_alarm_category": {"n": 200, "acc": 0.925, "acc_easy": 0.9785714285714285, "acc_hard": 0.8, "missing_rate": 0.0, "control_n": 0, "control_acc": 0.0, "control_unparsed": 0}, "m_needs_dispatch": {"n": 200, "acc": 0.88, "acc_easy": 0.8928571428571429, "acc_hard": 0.85, "missing_rate": 0.0, "control_n": 0, "control_acc": 0.0, "control_unparsed": 0}, "q_spc_action": {"n": 200, "acc": 0.71, "acc_easy": 0.7714285714285715, "acc_hard": 0.5666666666666667, "missing_rate": 0.0, "control_n": 0, "control_acc": 0.0, "control_unparsed": 0}, "q_defect_root": {"n": 200, "acc": 0.92, "acc_easy": 0.9642857142857143, "acc_hard": 0.8166666666666667, "missing_rate": 0.0, "control_n": 0, "control_acc": 0.0, "control_unparsed": 0}, "p_uph_anomaly": {"n": 200, "acc": 0.82, "acc_easy": 0.8857142857142857, "acc_hard": 0.6666666666666666, "missing_rate": 0.0, "control_n": 0, "control_acc": 0.0, "control_unparsed": 0}, "p_line_change": {"n": 200, "acc": 0.995, "acc_easy": 0.9928571428571429, "acc_hard": 1.0, "missing_rate": 0.0, "control_n": 0, "control_acc": 0.0, "control_unparsed": 0}, "x_ticket_route": {"n": 200, "acc": 0.995, "acc_easy": 1.0, "acc_hard": 0.9833333333333333, "missing_rate": 0.0, "control_n": 0, "control_acc": 0.0, "control_unparsed": 0}, "x_escalate": {"n": 200, "acc": 0.955, "acc_easy": 0.9428571428571428, "acc_hard": 0.9833333333333333, "missing_rate": 0.0, "control_n": 0, "control_acc": 0.0, "control_unparsed": 0}, "x_10way_intent": {"n": 200, "acc": 0.93, "acc_easy": 0.9071428571428571, "acc_hard": 0.9833333333333333, "missing_rate": 0.015, "control_n": 0, "control_acc": 0.0, "control_unparsed": 0}}

@@ -1,0 +1,25 @@
+{
+  "stage": "bench",
+  "model": "e4b",
+  "model_file": "gemma-4-E4B-it-Q8_0.gguf",
+  "gpu": "Tesla T4, 15360 MiB",
+  "download_s": 0.2,
+  "runs": [
+    {
+      "which": "smoke",
+      "rc": 0,
+      "server_ready_s": 113.2,
+      "bench_s": 58.0,
+      "vram_used_mib_at_end": "6195"
+    },
+    {
+      "which": "latency",
+      "rc": 0,
+      "server_ready_s": 5.1,
+      "bench_s": 74.8,
+      "vram_used_mib_at_end": "6193"
+    }
+  ],
+  "jevlike_commit": "62811a4ae2fb504994e6c76af18d07e3fc486a8d",
+  "ts": "2026-11-17T14:08:00Z"
+}

@@ -1,0 +1,57 @@
+2026-11-17T13:58:58Z
+Current balance: 0.00 compute units
+Usage rate: 1.15/hr
+Active assignments: 1
+[colab] Creating session 't4b'...
+[colab] Session READY.
+rc=0
+[watchdog] armed: runtime.unassign() in 75.0 min (at 15:14:06 UTC)
+2
+               total        used        free      shared  buff/cache   available
+Mem:              12           1           8           0           3          11
+Cuda compilation tools, release 13.0, V13.0.88
+Build cuda_13.0.r13.0/compiler.36424714_0
+cmake version 3.31.10
+cudart-llama-b11371-bin-ubuntu-cuda-12.8-x64.tar.gz 594377925
+cudart-llama-b11371-bin-ubuntu-cuda-13.4-arm64.tar.gz 552521502
+cudart-llama-b11371-bin-ubuntu-cuda-13.4-x64.tar.gz 440236613
+cudart-llama-bin-win-cuda-12.4-x64.zip 391443627
+cudart-llama-bin-win-cuda-13.4-arm64.zip 153262407
+cudart-llama-bin-win-cuda-13.4-x64.zip 423535356
+llama-b11371-bin-android-arm64-snapdragon.tar.gz 58183291
+llama-b11371-bin-android-arm64.tar.gz 73901086
+llama-b11371-bin-linux-arm64-snapdragon.tar.gz 19342296
+llama-b11371-bin-macos-arm64.tar.gz 11917416
+llama-b11371-bin-macos-x64.tar.gz 11473325
+llama-b11371-bin-ubuntu-arm64.tar.gz 13689451
+llama-b11371-bin-ubuntu-cuda-12.8-x64.tar.gz 171389988
+llama-b11371-bin-ubuntu-cuda-13.4-arm64.tar.gz 147522146
+llama-b11371-bin-ubuntu-cuda-13.4-x64.tar.gz 152273977
+llama-b11371-bin-ubuntu-openvino-2026.4-x64.tar.gz 109262262
+llama-b11371-bin-ubuntu-rocm-10.0-x64.tar.gz 243265007
+llama-b11371-bin-ubuntu-s390x.tar.gz 16388126
+llama-b11371-bin-ubuntu-sycl-fp16-x64.tar.gz 54279567
+llama-b11371-bin-ubuntu-sycl-fp32-x64.tar.gz 54187373
+llama-b11371-bin-ubuntu-vulkan-arm64.tar.gz 24849318
+llama-b11371-bin-ubuntu-vulkan-x64.tar.gz 31599656
+llama-b11371-bin-ubuntu-x64.tar.gz 17657697
+llama-b11371-bin-win-cpu-arm64.zip 12205331
+llama-b11371-bin-win-cpu-x64.zip 19352488
+llama-b11371-bin-win-cuda-12.4-x64.zip 263486696
+llama-b11371-bin-win-cuda-13.4-arm64.zip 145083319
+llama-b11371-bin-win-cuda-13.4-x64.zip 152897057
+llama-b11371-bin-win-opencl-adreno-arm64.zip 13022669
+llama-b11371-bin-win-openvino-2026.4-x64.zip 88450226
+llama-b11371-bin-win-rocm-10.0-x64.zip 256429036
+llama-b11371-bin-win-sycl-x64.zip 147916595
+llama-b11371-bin-win-vulkan-x64.zip 33281583
+llama-b11371-ui.tar.gz 3100970
+llama-b11371-xcframework.zip 61784599
+launched
+== stop 14:16:42
+[colab] Stopping session 't4b'...
+[colab] Session terminated.
+[colab] No active sessions found on server.
+Current balance: 0.00 compute units
+Usage rate: 1.15/hr
+Active assignments: 1
