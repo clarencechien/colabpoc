@@ -88,7 +88,8 @@ def worker_b(files):
     rep["load_s"] = round(time.time() - t0, 1)
     for i, f in enumerate(files + files[:1]):
         t = time.time()
-        segs, info = model.transcribe(f, beam_size=5, word_timestamps=False)  # language 沒開（自動偵測）
+        # 傳 16 kHz numpy 陣列，避開 faster-whisper 的 PyAV 解碼（Colab 內建 av 版本不接受 metadata_errors，2026-11-17 實測）
+        segs, info = model.transcribe(load16k(f), beam_size=5, word_timestamps=False)  # language 沒開（自動偵測）
         segs = list(segs)
         dt = time.time() - t
         rep["files"].append({"file": os.path.basename(f), "pass": "warm-repeat" if i >= len(files) else "first", "dur_s": round(info.duration, 2),
