@@ -28,6 +28,17 @@ llama.cpp **b11371**，自己編（`-DGGML_CUDA=ON -DCMAKE_CUDA_ARCHITECTURES="7
 結論三選一：**等價**／**不等價**（差在哪一類、哪個數字）／**沒跑完**（卡在哪）。
 不等價時先查 `<bos>`、thinking 關閉、`--swa-full`、選項順序；查完仍不等價就停下回報，不改 `decide/`。
 
-## 結果
+## 結果（2026-11-17）
 
-（尚未執行）
+**結論：沒跑完。** 這個帳號的 Colab 餘額是 0.00 CU，`colab new --gpu L4` 被後端拒絕（no quota or entitlement），所以 26B 與 E4B 在 L4 上都沒跑，「Colab L4 跟 Modal L4 是否等價」這個問題沒有答案。
+
+選做（T4，不屬於上表的門檻）：E4B，llama.cpp b11371 官方 `ubuntu-cuda-12.8-x64` 預編版（不是自行編譯），參數同上，port 改 8091（Colab 的 8080 被 Jupyter 佔用）。
+
+| 項目 | Colab T4 | Modal L4 | 備註 |
+|---|---|---|---|
+| smoke | 第一個 token 全是字母、`missing` 全空、8/10 題 p > 0.9 | — | M1 條件成立 |
+| E4B D0 十類平均 | 0.886 | 0.885 | 差 +0.1 點；逐類 −0.5 到 +1.0，8 類相同 |
+| L1 p50 | 135.6 ms | 63.4 ms（`latency_swafull.json`）；handoff 寫約 85 ms（v20） | T4 不是 L4，30% 門檻不適用，只記錄 |
+| 成本 | 約 0.34 CU（推算，餘額沒有變動） | 約 $0.80/h | |
+
+原始結果暫放 colabpoc `results/jevlike_colab/`。

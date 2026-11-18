@@ -1,0 +1,70 @@
+{
+  "phase": 4,
+  "gpu": "Tesla T4, 15360 MiB",
+  "blender_version": "5.3.0",
+  "url": "https://download.blender.org/release/Blender5.3/blender-5.3.0-linux-x64.tar.xz",
+  "ts": "2026-11-17T13:33:59Z",
+  "renders": {
+    "OPTIX": {
+      "requested_device": "OPTIX",
+      "blender": "5.3.0",
+      "devices": [
+        {
+          "name": "Tesla T4",
+          "type": "CUDA",
+          "use": false
+        },
+        {
+          "name": "Intel Xeon CPU @ 2.00GHz",
+          "type": "CPU",
+          "use": false
+        },
+        {
+          "name": "Tesla T4",
+          "type": "OPTIX",
+          "use": true
+        }
+      ],
+      "render_s": 11.63,
+      "png": "render_T4_OPTIX.png",
+      "note": "含 kernel 載入／BVH 建置；單張冷跑",
+      "glb_bytes": 468064,
+      "wall_s": 15.2
+    },
+    "CUDA": {
+      "requested_device": "CUDA",
+      "blender": "5.3.0",
+      "devices": [
+        {
+          "name": "Tesla T4",
+          "type": "CUDA",
+          "use": true
+        },
+        {
+          "name": "Intel Xeon CPU @ 2.00GHz",
+          "type": "CPU",
+          "use": false
+        },
+        {
+          "name": "Tesla T4",
+          "type": "OPTIX",
+          "use": false
+        }
+      ],
+      "render_s": 7.58,
+      "png": "render_T4_CUDA.png",
+      "note": "含 kernel 載入／BVH 建置；單張冷跑",
+      "wall_s": 8.7
+    },
+    "CPU": {
+      "requested_device": "CPU",
+      "blender": "5.3.0",
+      "devices": [],
+      "render_s": 579.84,
+      "png": "render_T4_CPU.png",
+      "note": "含 kernel 載入／BVH 建置；單張冷跑",
+      "wall_s": 580.9
+    }
+  },
+  "install_s": 36.4
+}

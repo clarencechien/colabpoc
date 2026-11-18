@@ -20,6 +20,7 @@ BUILD = "/content/llama.cpp"
 BIN_DIR = "/content/llama-bin"
 MODELS = {"26b": ("unsloth/gemma-4-26B-A4B-it-GGUF", "gemma-4-26B-A4B-it-UD-Q4_K_M.gguf"),
           "e4b": ("unsloth/gemma-4-E4B-it-GGUF", "gemma-4-E4B-it-Q8_0.gguf")}
+PORT = 8091  # Colab VM 的 8080 被 Colab 自己的 Jupyter 佔用（2026-11-17 實測 bind 失敗）
 JEVLIKE = "https://github.com/clarencechien/jevlike"
 
 
@@ -40,20 +41,36 @@ def build():
     os.makedirs(OUT, exist_ok=True)
     t0 = time.time()
     sh(f"rm -rf {BUILD} && git clone -q --depth 1 -b {TAG} https://github.com/ggml-org/llama.cpp {BUILD}")
-    sh(f'cd {BUILD} && cmake -B build -DGGML_CUDA=ON -DCMAKE_CUDA_ARCHITECTURES="75;89" -DCMAKE_BUILD_TYPE=Release > /content/cmake.log 2>&1')
+    sh(f'cd {BUILD} && cmake -B build -DGGML_CUDA=ON -DCMAKE_CUDA_ARCHITECTURES="{arg('--archs', '75;89')}" -DCMAKE_BUILD_TYPE=Release > /content/cmake.log 2>&1')
     sh(f"cd {BUILD} && cmake --build build -j --target llama-server > /content/build.log 2>&1")
     secs = round(time.time() - t0, 1)
     sh(f"rm -rf {BIN_DIR} && mkdir -p {BIN_DIR} && cp {BUILD}/build/bin/llama-server {BIN_DIR}/ && cp -P {BUILD}/build/bin/*.so* {BIN_DIR}/ 2>/dev/null || true")
     sh(f"tar czf {OUT}/llama-server-{TAG}.tar.gz -C {BIN_DIR} .")
     ver = subprocess.run(f"LD_LIBRARY_PATH={BIN_DIR} {BIN_DIR}/llama-server --version", shell=True, capture_output=True, text=True)
-    rep = {"stage": "build", "tag": TAG, "gpu": gpu_name(), "build_s": secs, "version": (ver.stdout + ver.stderr)[-400:],
+    rep = {"stage": "build", "tag": TAG, "archs": arg("--archs", "75;89"), "nproc": os.cpu_count(), "gpu": gpu_name(), "build_s": secs, "version": (ver.stdout + ver.stderr)[-400:],
            "tar_bytes": os.path.getsize(f"{OUT}/llama-server-{TAG}.tar.gz"), "ts": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())}
     json.dump(rep, open(f"{OUT}/build.json", "w"), indent=2)
     print("RESULT_JSON " + json.dumps(rep))
 
 
+def prebuilt():
+    """官方 release 的 ubuntu-cuda-12.8-x64 預編版（llama + cudart 兩包），取代自己編。"""
+    os.makedirs(OUT, exist_ok=True)
+    t0 = time.time()
+    rel = f"https://github.com/ggml-org/llama.cpp/releases/download/{TAG}"
+    sh(f"rm -rf {BIN_DIR} /content/llama-pre && mkdir -p {BIN_DIR} /content/llama-pre")
+    for name in (f"llama-{TAG}-bin-ubuntu-cuda-12.8-x64.tar.gz", f"cudart-llama-{TAG}-bin-ubuntu-cuda-12.8-x64.tar.gz"):
+        sh(f"curl -sSL {rel}/{name} | tar xz -C /content/llama-pre")
+    sh(f"find /content/llama-pre -type f \\( -name 'llama-server' -o -name '*.so*' \\) -exec cp -P {{}} {BIN_DIR}/ \\; ; find /content/llama-pre -type l -name '*.so*' -exec cp -P {{}} {BIN_DIR}/ \\;")
+    ver = subprocess.run(f"LD_LIBRARY_PATH={BIN_DIR} {BIN_DIR}/llama-server --version", shell=True, capture_output=True, text=True)
+    rep = {"stage": "prebuilt", "tag": TAG, "asset": "ubuntu-cuda-12.8-x64（官方 release，非自行編譯）", "fetch_s": round(time.time() - t0, 1),
+           "version": (ver.stdout + ver.stderr)[-600:], "files": sorted(os.listdir(BIN_DIR)), "ts": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime())}
+    json.dump(rep, open(f"{OUT}/prebuilt.json", "w"), indent=2)
+    print("RESULT_JSON " + json.dumps(rep))
+
+
 def start_server(model_path, log):
-    cmd = [f"{BIN_DIR}/llama-server", "-m", model_path, "-ngl", "99", "-c", "16384", "-np", "4", "--port", "8080", "--host", "127.0.0.1",
+    cmd = [f"{BIN_DIR}/llama-server", "-m", model_path, "-ngl", "99", "-c", "16384", "-np", "4", "--port", str(PORT), "--host", "127.0.0.1",
            "--jinja", "--reasoning-budget", "0", "--metrics", "--swa-full"]
     print("starting:", " ".join(cmd), flush=True)
     proc = subprocess.Popen(cmd, stdout=open(log, "a"), stderr=subprocess.STDOUT, env=dict(os.environ, LD_LIBRARY_PATH=f"{BIN_DIR}:" + os.environ.get("LD_LIBRARY_PATH", "")))
@@ -62,7 +79,7 @@ def start_server(model_path, log):
         if proc.poll() is not None:
             raise RuntimeError(f"llama-server exited early with code {proc.returncode}; see {log}")
         try:
-            urllib.request.urlopen("http://127.0.0.1:8080/health", timeout=1)
+            urllib.request.urlopen(f"http://127.0.0.1:{PORT}/health", timeout=1)
             print(f"server healthy after {time.time() - t0:.1f}s", flush=True)
             return proc, round(time.time() - t0, 1)
         except Exception:  # noqa: BLE001
@@ -99,7 +116,7 @@ def bench():
         proc, ready_s = start_server(path, f"{OUT}/server-{model}.log")
         t = time.time()
         try:
-            cmd = f"cd /content/jevlike && {sys.executable} bench/run_local.py --which {which} --model {model} --base-url http://127.0.0.1:8080 --out-dir {out_dir}"
+            cmd = f"cd /content/jevlike && {sys.executable} bench/run_local.py --which {which} --model {model} --base-url http://127.0.0.1:{PORT} --out-dir {out_dir}"
             cmd += f' --args "{args}"' if args else ""
             r = subprocess.run(cmd + f" > {OUT}/{w}-{model}.log 2>&1", shell=True)
             vram = subprocess.run(["nvidia-smi", "--query-gpu=memory.used", "--format=csv,noheader,nounits"], capture_output=True, text=True).stdout.strip()
@@ -114,4 +131,4 @@ def bench():
 
 
 if __name__ == "__main__":
-    {"build": build, "bench": bench}[sys.argv[1]]()
+    {"build": build, "prebuilt": prebuilt, "bench": bench}[sys.argv[1]]()

@@ -1,0 +1,120 @@
+{
+  "phase": 2,
+  "model": "ZONOS3-Mini",
+  "gpu": "Tesla T4, 15360 MiB",
+  "ts": "2026-11-17T13:30:14Z",
+  "language_check": {
+    "華語": "有（model card：Mandarin Chinese，request code `cmn`）",
+    "繁簡之分": "它沒有：model card 只列一個 Mandarin Chinese，沒有分繁簡",
+    "台灣口音": "它沒有：預設華語聲音只有 Haoran / Meilin（energetic），model card 沒提台灣口音",
+    "中英夾雜": "model card 沒寫是否支援；`language` 只選文字正規化，不是語言 token"
+  },
+  "paths": {
+    "B_transformers_hf": {
+      "transformers": "5.22.1",
+      "torch": "2.14.1+cu130",
+      "voice": "Meilin",
+      "language": "cmn",
+      "bf16_supported": false,
+      "首段音訊時間": "它沒有：-hf 版 model card 明寫不含 streaming decode，只能量整句時間",
+      "attempts": [
+        {
+          "dtype": "as-stored(default)",
+          "ok": true,
+          "load_s": 35.9,
+          "warmup_s": 10.9,
+          "lm_param_dtype": "torch.bfloat16"
+        }
+      ],
+      "files": [
+        {
+          "key": "zh1",
+          "text": "今天下午三點要開產線檢討會議，請大家準時出席。",
+          "wav": "zh1.wav",
+          "audio_s": 0.27,
+          "gen_s": 0.82,
+          "rtf": 3.0738,
+          "sampling_rate": 44100
+        },
+        {
+          "key": "zh2",
+          "text": "這批板子的錫膏印刷偏移太多，需要重新校正鋼板。",
+          "wav": "zh2.wav",
+          "audio_s": 0.27,
+          "gen_s": 0.71,
+          "rtf": 2.6759,
+          "sampling_rate": 44100
+        },
+        {
+          "key": "zh3",
+          "text": "颱風快來了，記得把陽台的盆栽收進來。",
+          "wav": "zh3.wav",
+          "audio_s": 0.27,
+          "gen_s": 0.68,
+          "rtf": 2.5637,
+          "sampling_rate": 44100
+        },
+        {
+          "key": "mix1",
+          "text": "這個 PR 的 CI 一直 fail，你可以幫我 review 一下嗎？",
+          "wav": "mix1.wav",
+          "audio_s": 4.73,
+          "gen_s": 2.96,
+          "rtf": 0.6251,
+          "sampling_rate": 44100
+        },
+        {
+          "key": "mix2",
+          "text": "我們先把 model deploy 到 staging，再跑一次 benchmark。",
+          "wav": "mix2.wav",
+          "audio_s": 4.27,
+          "gen_s": 2.79,
+          "rtf": 0.6534,
+          "sampling_rate": 44100
+        },
+        {
+          "key": "mix3",
+          "text": "明天的 meeting 改到下午，agenda 我晚點 update。",
+          "wav": "mix3.wav",
+          "audio_s": 4.13,
+          "gen_s": 3.43,
+          "rtf": 0.8298,
+          "sampling_rate": 44100
+        },
+        {
+          "key": "num1",
+          "text": "訂單編號 A12345，總金額是新台幣三萬六千八百五十元。",
+          "wav": "num1.wav",
+          "audio_s": 7.13,
+          "gen_s": 4.3,
+          "rtf": 0.6022,
+          "sampling_rate": 44100
+        },
+        {
+          "key": "num2",
+          "text": "會議時間是 2026 年 11 月 17 日下午 2 點 30 分。",
+          "wav": "num2.wav",
+          "audio_s": 5.4,
+          "gen_s": 3.37,
+          "rtf": 0.625,
+          "sampling_rate": 44100
+        },
+        {
+          "key": "num3",
+          "text": "良率從 92.5% 提升到 97.3%，UPH 增加了 120 片。",
+          "wav": "num3.wav",
+          "audio_s": 7.67,
+          "gen_s": 5.37,
+          "rtf": 0.7008,
+          "sampling_rate": 44100
+        }
+      ],
+      "dtype_used": "as-stored(default)",
+      "clone": "沒測：audio/ 沒有 ref.* 參考音檔",
+      "torch_peak_alloc_mib": 2600,
+      "ok": true,
+      "peak_vram_mib_nvidia_smi": 2873,
+      "wall_s": 91.5
+    }
+  }
+}
